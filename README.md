@@ -3,7 +3,7 @@
 django-easy-timezones [![Build Status](https://travis-ci.org/Miserlou/django-easy-timezones.svg)](https://travis-ci.org/Miserlou/django-easy-timezones)
 =====================
 
-Easy IP-based timezones for Django (>=1.8) based on MaxMind GeoIP, with IPv6 support.
+Easy IP-based timezones for Django (>=1.11) based on MaxMind GeoIP, with IPv6 support.
 
 Quick start
 -----------
@@ -26,7 +26,7 @@ Quick start
 1. Add EasyTimezoneMiddleware to your MIDDLEWARE_CLASSES 
 
     ```python
-    MIDDLEWARE_CLASSES = (
+    MIDDLEWARE = (
       ...
       'easy_timezones.middleware.EasyTimezoneMiddleware',
     )
