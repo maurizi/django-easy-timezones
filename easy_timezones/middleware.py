@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ImproperlyConfigured
 from django.utils import timezone
+from django.utils.deprecation import MiddlewareMixin
 import pytz
 import geoip2.database
 import os
@@ -59,14 +60,7 @@ def lookup_tz(ip):
     return response.location.time_zone
 
 
-if django.VERSION >= (1, 10):
-    from django.utils.deprecation import MiddlewareMixin
-    middleware_base_class = MiddlewareMixin
-else:
-    middleware_base_class = object
-
-
-class EasyTimezoneMiddleware(middleware_base_class):
+class EasyTimezoneMiddleware(MiddlewareMixin):
     def process_request(self, request):
         """
         If we can get a valid IP from the request,
