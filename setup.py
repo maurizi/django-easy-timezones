@@ -20,7 +20,7 @@ setup(
     license='Apache License',
     description='Easy timezones for Django (>=1.11) based on MaxMind GeoLite2.',
     long_description=README,
-    long_description_content_type='text/markdown'
+    long_description_content_type='text/markdown',
     url='https://github.com/maurizi/django-easy-timezones',
     author='Rich Jones',
     maintainer='Michael Maurizi',
