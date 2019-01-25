@@ -2,12 +2,8 @@ import os
 from setuptools import setup
 
 # Set external files
-try:
-    from pypandoc import convert
-    README = convert('README.md', 'rst')
-except ImportError:
-    README = open(os.path.join(os.path.dirname(__file__), 'README.md')).read()
-    print("warning: pypandoc module not found, could not convert Markdown to RST")
+with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+    README = f.read()
 
 with open(os.path.join(os.path.dirname(__file__), 'requirements.txt')) as f:
     required = f.read().splitlines()
@@ -24,6 +20,7 @@ setup(
     license='Apache License',
     description='Easy timezones for Django (>=1.11) based on MaxMind GeoLite2.',
     long_description=README,
+    long_description_content_type='text/markdown'
     url='https://github.com/maurizi/django-easy-timezones',
     author='Rich Jones',
     maintainer='Michael Maurizi',
