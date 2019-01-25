@@ -7,4 +7,5 @@
 django_easy_timezones.egg-info/
 env/
 dist/
+build/
 local_settings.py

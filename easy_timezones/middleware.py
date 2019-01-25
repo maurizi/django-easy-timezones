@@ -18,25 +18,25 @@ db_v6 = None
 
 
 def load_db_settings():
-    GEOLITE2_DATABASE = getattr(settings, 'GEOLITE2_DATABASE', 'GeoLite2-City.mmdb')
+    GEOIP2_DATABASE = getattr(settings, 'GEOIP2_DATABASE', 'GeoLite2-City.mmdb')
 
-    if not GEOLITE2_DATABASE:
-        raise ImproperlyConfigured("GEOLITE2_DATABASE setting has not been properly defined.")
+    if not GEOIP2_DATABASE:
+        raise ImproperlyConfigured("GEOIP2_DATABASE setting has not been properly defined.")
 
-    if not os.path.exists(GEOLITE2_DATABASE):
-        raise ImproperlyConfigured("GEOLITE2_DATABASE setting is defined, but file does not exist.")
+    if not os.path.exists(GEOIP2_DATABASE):
+        raise ImproperlyConfigured("GEOIP2_DATABASE setting is defined, but file does not exist.")
 
-    return GEOLITE2_DATABASE
+    return GEOIP2_DATABASE
 
 
 load_db_settings()
 
 
 def load_db():
-    GEOLITE2_DATABASE = load_db_settings()
+    GEOIP2_DATABASE = load_db_settings()
 
     global db
-    db = db = geoip2.database.Reader(GEOLITE2_DATABASE)
+    db = db = geoip2.database.Reader(GEOIP2_DATABASE)
 
     global db_loaded
     db_loaded = True
