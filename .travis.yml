@@ -3,6 +3,18 @@ python:
   - "3.5"
 
 env:
+  - TOX_ENV=py37-django21
+  - TOX_ENV=py36-django21
+  - TOX_ENV=py35-django21
+  - TOX_ENV=py37-django20
+  - TOX_ENV=py36-django20
+  - TOX_ENV=py35-django20
+  - TOX_ENV=py34-django20
+  - TOX_ENV=py27-django111
+  - TOX_ENV=py34-django111
+  - TOX_ENV=py35-django111
+  - TOX_ENV=py36-django111
+  - TOX_ENV=py37-django111
   - TOX_ENV=py27-django110
   - TOX_ENV=py35-django110
   - TOX_ENV=py34-django110
@@ -13,9 +25,6 @@ env:
   - TOX_ENV=py34-django18
   - TOX_ENV=py33-django18
   - TOX_ENV=py27-django18
-  - TOX_ENV=py34-django17
-  - TOX_ENV=py33-django17
-  - TOX_ENV=py27-django17
 
 # command to install dependencies
 install:
