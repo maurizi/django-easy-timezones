@@ -3,7 +3,7 @@
 django-easy-timezones [![Build Status](https://travis-ci.org/Miserlou/django-easy-timezones.svg)](https://travis-ci.org/Miserlou/django-easy-timezones)
 =====================
 
-Easy IP-based timezones for Django (>=1.7) based on MaxMind GeoIP, with IPv6 support.
+Easy IP-based timezones for Django (>=1.8) based on MaxMind GeoIP, with IPv6 support.
 
 Quick start
 -----------
@@ -32,12 +32,10 @@ Quick start
     )
     ```
 
-1. (Optionally) Add a path to the [MaxMind GeoIP cities databases](http://dev.maxmind.com/geoip/legacy/geolite/) ([direct
-link](http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz) because I'm nice) in your settings file:
+1. (Optionally) Add a path to the [MaxMind GeoLite2 cities databases](https://dev.maxmind.com/geoip/geoip2/geolite2/) in your settings file:
 
     ```python
-    GEOIP_DATABASE = '/path/to/your/geoip/database/GeoLiteCity.dat'
-    GEOIPV6_DATABASE = '/path/to/your/geoip/database/GeoLiteCityv6.dat'
+    GEOIP2_DATABASE = '/path/to/your/geoip/database/GeoLite2-City.mmdb'
     ```
 
 1. Enable localtime in your templates.

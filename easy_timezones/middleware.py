@@ -4,49 +4,59 @@ from django.contrib.auth import get_user_model
 from django.core.exceptions import ImproperlyConfigured
 from django.utils import timezone
 import pytz
-import pygeoip
+import geoip2.database
 import os
 
 from .signals import detected_timezone
 from .utils import get_ip_address_from_request, is_valid_ip, is_local_ip
 
+
 db_loaded = False
 db = None
 db_v6 = None
 
+
 def load_db_settings():
-    GEOIP_DATABASE = getattr(settings, 'GEOIP_DATABASE', 'GeoLiteCity.dat')
+    GEOLITE2_DATABASE = getattr(settings, 'GEOLITE2_DATABASE', 'GeoLite2-City.mmdb')
 
-    if not GEOIP_DATABASE:
-        raise ImproperlyConfigured("GEOIP_DATABASE setting has not been properly defined.")
+    if not GEOLITE2_DATABASE:
+        raise ImproperlyConfigured("GEOLITE2_DATABASE setting has not been properly defined.")
 
-    if not os.path.exists(GEOIP_DATABASE):
-        raise ImproperlyConfigured("GEOIP_DATABASE setting is defined, but file does not exist.")
+    if not os.path.exists(GEOLITE2_DATABASE):
+        raise ImproperlyConfigured("GEOLITE2_DATABASE setting is defined, but file does not exist.")
 
-    GEOIPV6_DATABASE = getattr(settings, 'GEOIPV6_DATABASE', 'GeoLiteCityv6.dat')
+    return GEOLITE2_DATABASE
 
-    if not GEOIPV6_DATABASE:
-        raise ImproperlyConfigured("GEOIPV6_DATABASE setting has not been properly defined.")
-
-    if not os.path.exists(GEOIPV6_DATABASE):
-        raise ImproperlyConfigured("GEOIPV6_DATABASE setting is defined, but file does not exist.")
-
-    return (GEOIP_DATABASE, GEOIPV6_DATABASE)
 
 load_db_settings()
 
-def load_db():
 
-    GEOIP_DATABASE, GEOIPV6_DATABASE = load_db_settings()
+def load_db():
+    GEOLITE2_DATABASE = load_db_settings()
 
     global db
-    db = pygeoip.GeoIP(GEOIP_DATABASE, pygeoip.MEMORY_CACHE)
-
-    global db_v6
-    db_v6 = pygeoip.GeoIP(GEOIPV6_DATABASE, pygeoip.MEMORY_CACHE)
+    db = db = geoip2.database.Reader(GEOLITE2_DATABASE)
 
     global db_loaded
     db_loaded = True
+
+
+def lookup_tz(ip):
+    """
+    Lookup a timezone for the ip using the v2 database.
+    :param ip: the ip address, v4 or v6
+    :return:   the timezone
+    """
+    if not db_loaded:
+        load_db()
+    #
+    # v2 databases support both ipv4 an ipv6
+    #
+    try:
+        response = db.city(ip)
+    except geoip2.errors.AddressNotFoundError:
+        return None
+    return response.location.time_zone
 
 
 if django.VERSION >= (1, 10):
@@ -83,12 +93,8 @@ class EasyTimezoneMiddleware(middleware_base_class):
             ip_addrs = client_ip.split(',')
             for ip in ip_addrs:
                 if is_valid_ip(ip) and not is_local_ip(ip):
-                    if ':' in ip:
-                        tz = db_v6.time_zone_by_addr(ip)
-                        break
-                    else:
-                        tz = db.time_zone_by_addr(ip)
-                        break
+                    tz = lookup_tz(ip)
+                    break
 
         if tz:
             timezone.activate(tz)

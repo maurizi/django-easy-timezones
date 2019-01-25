@@ -10,16 +10,9 @@ from .middleware import load_db, load_db_settings, EasyTimezoneMiddleware
 from .utils import get_ip_address_from_request, is_valid_ip, is_local_ip
 
 class TimezoneTests(TestCase):
-    
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2. (Sanity test.)
-        """
-
-        self.assertEqual(1 + 1, 2)
 
     def test_load_db_settings(self):
-        settings.GEOIP_DATABASE = None
+        settings.GEOLITE2_DATABASE = None
         try:
             load_db_settings()
             error_occured = False
@@ -27,7 +20,7 @@ class TimezoneTests(TestCase):
             error_occured = True
         self.assertTrue(error_occured)
 
-        settings.GEOIP_DATABASE = 'does not exist'
+        settings.GEOLITE2_DATABASE = 'does not exist'
         try:
             load_db_settings()
             error_occured = False
@@ -35,7 +28,7 @@ class TimezoneTests(TestCase):
             error_occured = True
         self.assertTrue(error_occured)
 
-        settings.GEOIP_DATABASE = os.path.join(os.getcwd(), 'GeoLiteCity.dat')
+        settings.GEOLITE2_DATABASE = os.path.join(os.getcwd(), 'GeoLite2-City.mmdb')
         try:
             error_occured = False
         except ImproperlyConfigured:
