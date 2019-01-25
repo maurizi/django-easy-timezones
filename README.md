@@ -1,17 +1,18 @@
 ![Timezones. Yuck.](http://i.imgur.com/Qc2W47H.gif)
 
-django-easy-timezones [![Build Status](https://travis-ci.org/Miserlou/django-easy-timezones.svg)](https://travis-ci.org/Miserlou/django-easy-timezones)
+django-easy-timezones-redux [![Build Status](https://travis-ci.org/maurizi/django-easy-timezones.svg)](https://travis-ci.org/maurizi/django-easy-timezones)
 =====================
 
 Easy IP-based timezones for Django (>=1.11) based on MaxMind GeoIP, with IPv6 support.
+Updated fork of [`django-easy-timezones`](https://github.com/Miserlou/django-easy-timezones) that uses the new version of MaxMind's GeoIP database.
 
 Quick start
 -----------
 
-1. Install django-easy-timezones
+1. Install django-easy-timezones-redux
 
     ```python
-    pip install django-easy-timezones
+    pip install django-easy-timezones-redux
     ```
 
 1. Add "easy-timezones" to your INSTALLED_APPS setting like this:
@@ -23,7 +24,7 @@ Quick start
     )
     ```
 
-1. Add EasyTimezoneMiddleware to your MIDDLEWARE_CLASSES 
+1. Add EasyTimezoneMiddleware to your MIDDLEWARE
 
     ```python
     MIDDLEWARE = (
@@ -32,7 +33,7 @@ Quick start
     )
     ```
 
-1. (Optionally) Add a path to the [MaxMind GeoLite2 cities databases](https://dev.maxmind.com/geoip/geoip2/geolite2/) in your settings file:
+1. Add a path to the [MaxMind GeoLite2 cities databases](https://dev.maxmind.com/geoip/geoip2/geolite2/) in your settings file:
 
     ```python
     GEOIP2_DATABASE = '/path/to/your/geoip/database/GeoLite2-City.mmdb'
