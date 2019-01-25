@@ -4,7 +4,7 @@ django-easy-timezones-redux [![Build Status](https://travis-ci.org/maurizi/djang
 =====================
 
 Easy IP-based timezones for Django (>=1.11) based on MaxMind GeoIP, with IPv6 support.
-Updated fork of [`django-easy-timezones`](https://github.com/Miserlou/django-easy-timezones) that uses the new version of MaxMind's GeoIP database.
+Updated fork of [`django-easy-timezones`](https://github.com/Miserlou/django-easy-timezones) that uses the new version of MaxMind's GeoIP2 database.
 
 Quick start
 -----------
@@ -48,7 +48,7 @@ Quick start
         The local time is {{ object.date }}
     {% endlocaltime %}
     ```
-1. Twist one up, cause you're done, homie!
+1. That's it!
 
 ## Signals
 
