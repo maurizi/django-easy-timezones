@@ -9,7 +9,7 @@ DATABASES = {
 }
 SECRET_KEY = "secret_key_for_testing"
 INSTALLED_APPS = ['django.contrib.auth', 'django.contrib.sites', 'django.contrib.sessions', 'django.contrib.contenttypes', 'easy_timezones']
-GEOIP_DATABASE = 'GeoLiteCity.dat'
+GEOLITE2_DATABASE = 'GeoLite2-City.mmdb'
 ROOT_URLCONF = 'easy_timezones.urls'
 TIME_ZONE = 'UTC'
 ALLOWED_HOSTS = ["*"]

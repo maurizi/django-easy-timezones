@@ -35,7 +35,7 @@ def load_db():
     GEOLITE2_DATABASE = load_db_settings()
 
     global db
-    db = db = geoip2.database.Reader(GEOIP_DATABASE)
+    db = db = geoip2.database.Reader(GEOLITE2_DATABASE)
 
     global db_loaded
     db_loaded = True
