@@ -2,7 +2,7 @@ import os
 from setuptools import setup
 
 # Set external files
-with open(os.path.join(os.path.dirname(__file__), 'README.md'), encoding='utf-8') as f:
+with open(os.path.join(os.path.dirname(__file__), 'README.md')) as f:
     README = f.read()
 
 with open(os.path.join(os.path.dirname(__file__), 'requirements.txt')) as f:
@@ -13,7 +13,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-easy-timezones-redux',
-    version='1.0.3',
+    version='1.0.4',
     packages=['easy_timezones'],
     install_requires=required,
     include_package_data=True,
